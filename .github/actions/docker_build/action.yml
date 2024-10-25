@@ -14,5 +14,5 @@ runs:
     
     - name: List containers
       shell: bash
-      run: docker ps
+      run: docker images
 
