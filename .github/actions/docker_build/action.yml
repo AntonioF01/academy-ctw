@@ -1,16 +1,32 @@
 name: Build
 description: Build application with Maven and create a new Docker image
 inputs:
-  dockerfile_path:
+  dockerfile-path:
     description: "Path to the Dockerfile"
+    type: string
     required: false
-    default: "Dockerfile"
+    default: "./src/main/docker/Dockerfile.jvm"
+  image-tag:
+    description: "Tag to the image"
+    type: string
+    required: false
+    default: "$(date +%s)"
+
 runs:
   using: composite
   steps:
+    - name: Set IMAGE_TAG env variable
+      shell: bash 
+      run: if [ -z "${{ inputs.{{image_tag}} }}" ]; then echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV else echo "IMAGE_TAG=${{ inputs.{{image_tag}} }}" >> $GITHUB_ENV fi
+
+    - name: Set DOCKERFILE_PATH env variable 
+      shell: bash 
+      run: if [ -z "${{ inputs.{{dockerfile-path}} }}" ]; then echo "DOCKERFILE_PATH=$(date +%s)" >> $GITHUB_ENV else echo "DOCKERFILE_PATH=${{ inputs.{{dockerfile-path}} }}" >> $GITHUB_ENV fi
+    
+  
     - name: Run container with DB
       shell: bash
-      run: docker build . --file ./src/main/docker/Dockerfile.jvm --tag academy:$(date +%s)
+      run: docker build . --file '$DOCKERFILE_PATH' --tag academy:'$IMAGE_TAG'
     
     - name: List containers
       shell: bash
