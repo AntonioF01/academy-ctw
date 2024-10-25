@@ -5,23 +5,23 @@ inputs:
     description: "Path to the Dockerfile"
     type: string
     required: false
-    default: "./src/main/docker/Dockerfile.jvm"
   image-tag:
     description: "Tag to the image"
     type: string
     required: false
-    default: "$(date +%s)"
-
+    
 runs:
   using: composite
   steps:
     - name: Set IMAGE_TAG env variable
       shell: bash 
-      run: if [ -z "${{ inputs.image-tag }}" ]; then echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV else echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV fi
+      run: |
+      if [ -z "${{ inputs.image-tag }}" ]; then echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV else echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV fi
 
     - name: Set DOCKERFILE_PATH env variable 
       shell: bash 
-      run: if [ -z "${{ inputs.dockerfile-path }}" ]; then echo "DOCKERFILE_PATH=$(date +%s)" >> $GITHUB_ENV else echo "DOCKERFILE_PATH=${{ inputs.dockerfile-path }}" >> $GITHUB_ENV fi
+      run: |
+      if [ -z "${{ inputs.dockerfile-path }}" ]; then echo "DOCKERFILE_PATH=$(date +%s)" >> $GITHUB_ENV else echo "DOCKERFILE_PATH=${{ inputs.dockerfile-path }}" >> $GITHUB_ENV fi
     
   
     - name: Run container with DB
