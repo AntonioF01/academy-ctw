@@ -1,6 +1,17 @@
 name: Java CI with Maven
 
 on:
+  workflow_dispatch:
+    inputs:
+      dockerfile-path:
+        description: 'Path to the dockerfile'
+        required: false
+        type: string
+      image-tag:
+        description: 'Tag to the docker image'
+        required: false
+        type: string
+
   push:
     branches: [ "main" ]
   pull_request:
@@ -14,4 +25,7 @@ jobs:
     steps:
     - uses: AntonioF01/academy-ctw/.github/actions/maven_build@main
     - uses: AntonioF01/academy-ctw/.github/actions/docker_build@main
+      with:
+        dockerfile-path: ${{ inputs.dockerfile-path }}
+        image-tag: ${{ inputs.image-tag }}
     
