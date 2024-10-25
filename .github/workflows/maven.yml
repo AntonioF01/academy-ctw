@@ -26,6 +26,6 @@ jobs:
     - uses: AntonioF01/academy-ctw/.github/actions/maven_build@main
     - uses: AntonioF01/academy-ctw/.github/actions/docker_build@main
       with:
-        dockerfile-path: ${{ inputs.dockerfile-path }}
+        dockerfile-path: ./src/main/docker/Dockerfile.jvm
         image-tag: ${{ inputs.image-tag }}
     
