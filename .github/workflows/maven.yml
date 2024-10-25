@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
     - uses: AntonioF01/academy-ctw/.github/actions/maven_build@main
     - uses: AntonioF01/academy-ctw/.github/actions/docker_build@main
     
