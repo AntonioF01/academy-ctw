@@ -13,14 +13,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set IMAGE_TAG env variable
-      shell: bash 
-      run: |
-      if [ -z "${{ inputs.image-tag }}" ]; then 
-        echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV 
-      else 
-        echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
-      fi
+
 
     - name: Set DOCKERFILE_PATH env variable 
       shell: bash 
